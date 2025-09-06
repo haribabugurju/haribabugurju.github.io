@@ -145,3 +145,20 @@ th {
   background: #374151;
   color: #fff;
 }
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #resultBox, #resultBox * {
+    visibility: visible;
+  }
+  #resultBox {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+  button {
+    display: none; /* Hide button in print */
+  }
+}
