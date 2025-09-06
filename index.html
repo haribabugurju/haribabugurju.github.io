@@ -78,3 +78,95 @@
 </body>
 </html>
 <img src="profile.png" alt="Mr. Haribabu Gurju" class="profile-pic">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Result Lookup</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f9fafb; padding: 20px; }
+    h1 { text-align: center; }
+    #rollInput { display: block; margin: 20px auto; padding: 10px; width: 250px; }
+    #searchBtn { display: block; margin: 10px auto; padding: 10px 20px; }
+    #resultBox { max-width: 600px; margin: 30px auto; padding: 20px; background: #fff;
+      border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); display: none; }
+    table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+    th, td { border: 1px solid #ccc; padding: 10px; text-align: center; }
+    th { background: #374151; color: white; }
+    #notFound { text-align: center; color: red; font-weight: bold; display: none; }
+  </style>
+</head>
+<body>
+  <h1>Student Result Portal</h1>
+
+  <input type="text" id="rollInput" placeholder="Enter Roll No">
+  <button id="searchBtn">Search</button>
+
+  <div id="resultBox"></div>
+  <div id="notFound">❌ Roll No not found</div>
+
+  <script>
+    const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTJMhGQsETkODoHIBnmE101RGjUx161kBg5_qj6MF80zRvfmMq8ZHLty7VV9DHjzEp1igiUc1hZvG9d/pub?output=csv";
+
+    async function fetchResults() {
+      const response = await fetch(sheetURL);
+      const data = await response.text();
+      const rows = data.split("\n").map(r => r.split(","));
+      return rows; // 2D array
+    }
+
+    document.getElementById("searchBtn").addEventListener("click", async () => {
+      const rollNo = document.getElementById("rollInput").value.trim();
+      const rows = await fetchResults();
+
+      let found = false;
+      let resultHTML = "";
+
+      for (let i = 1; i < rows.length; i++) {
+        if (rows[i][0] === rollNo) {  // first column = Roll No
+          found = true;
+          const name = rows[i][1];
+          const subjects = rows[0].slice(2); // subject headers
+          const marks = rows[i].slice(2);
+
+          let total = 0, pass = true;
+          let tableRows = "";
+          marks.forEach((m, idx) => {
+            const num = Number(m);
+            total += num;
+            if (num < 40) pass = false;
+            tableRows += `<tr><td>${subjects[idx]}</td><td>${num}</td></tr>`;
+          });
+
+          const avg = (total / marks.length).toFixed(2);
+          const status = pass ? "Pass ✅" : "Fail ❌";
+
+          resultHTML = `
+            <h2>Result for Roll No: ${rollNo}</h2>
+            <p><strong>Name:</strong> ${name}</p>
+            <table>
+              <tr><th>Subject</th><th>Marks</th></tr>
+              ${tableRows}
+              <tr><th>Total</th><td>${total}</td></tr>
+              <tr><th>Average</th><td>${avg}</td></tr>
+              <tr><th>Status</th><td>${status}</td></tr>
+            </table>
+          `;
+          break;
+        }
+      }
+
+      if (found) {
+        document.getElementById("resultBox").innerHTML = resultHTML;
+        document.getElementById("resultBox").style.display = "block";
+        document.getElementById("notFound").style.display = "none";
+      } else {
+        document.getElementById("resultBox").style.display = "none";
+        document.getElementById("notFound").style.display = "block";
+      }
+    });
+  </script>
+</body>
+</html>
+
