@@ -10,7 +10,69 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
-    /* Result Portal Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header, nav, footer {
+      text-align: center;
+      padding: 15px;
+      background: #374151;
+      color: white;
+    }
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    nav a {
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+    }
+
+    /* Slider */
+    #slider {
+      width: 100%;
+      max-height: 400px;
+      overflow: hidden;
+      position: relative;
+      margin: 20px 0;
+    }
+    .slider-container {
+      position: relative;
+    }
+    .slide {
+      display: none;
+    }
+    .slide img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+    }
+
+    /* About section */
+    #about {
+      padding: 40px 20px;
+      background: #f4f4f4;
+    }
+    .about-container {
+      max-width: 1000px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .profile-pic {
+      width: 200px;
+      border-radius: 50%;
+    }
+
+    /* Result Portal */
     #results {
       background: #f9fafb;
       padding: 40px 20px;
@@ -23,6 +85,18 @@
     th, td { border: 1px solid #ccc; padding: 10px; text-align: center; }
     th { background: #374151; color: white; }
     #notFound { text-align: center; color: red; font-weight: bold; display: none; }
+
+    /* Projects */
+    #projects {
+      padding: 40px 20px;
+      background: #f4f4f4;
+    }
+    .project { margin-bottom: 20px; }
+
+    /* Contact */
+    #contact {
+      padding: 40px 20px;
+    }
   </style>
 </head>
 <body>
@@ -40,13 +114,28 @@
     </ul>
   </nav>
 
+  <!-- Image Slider -->
+  <section id="slider">
+    <div class="slider-container">
+      <div class="slide active">
+        <img src="img1.jpg" alt="Slide 1">
+      </div>
+      <div class="slide">
+        <img src="img2.jpg" alt="Slide 2">
+      </div>
+      <div class="slide">
+        <img src="img3.jpg" alt="Slide 3">
+      </div>
+    </div>
+  </section>
+
   <!-- About Section -->
   <section id="about">
     <h2>About Me</h2>
     <div class="about-container">
       <img src="profile.jpg" alt="Mr. Haribabu Gurju" class="profile-pic">
       <p>
-        Hi, I’m Mr. Haribabu Gurju. I am a motivated and detail-oriented professional with a strong background in Electronics, Communication, and Computer Engineering...
+        Hi, I’m Mr. Haribabu Gurju. I am a motivated and detail-oriented professional with a strong background in Electronics, Communication, and Computer Engineering domains...
       </p>
     </div>
   </section>
@@ -57,7 +146,6 @@
     <input type="text" id="rollInput" placeholder="Enter Roll No">
     <button id="searchBtn">Search</button>
     <button onclick="window.print()">Download / Print PDF</button>
-
     <div id="resultBox"></div>
     <div id="notFound">❌ Roll No not found</div>
   </section>
@@ -90,7 +178,29 @@
     <p>&copy; 2025 Haribabu Gurju | All Rights Reserved</p>
   </footer>
 
+  <!-- Scripts -->
   <script>
+    // Auto Image Slider
+    let currentIndex = 0;
+    const slides = document.querySelectorAll(".slide");
+    const totalSlides = slides.length;
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.style.display = i === index ? "block" : "none";
+      });
+    }
+
+    function nextSlide() {
+      currentIndex = (currentIndex + 1) % totalSlides;
+      showSlide(currentIndex);
+    }
+
+    // Initialize
+    showSlide(currentIndex);
+    setInterval(nextSlide, 3000); // Change image every 3 seconds
+
+    // Student Result Portal
     const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTJMhGQsETkODoHIBnmE101RGjUx161kBg5_qj6MF80zRvfmMq8ZHLty7VV9DHjzEp1igiUc1hZvG9d/pub?output=csv";
 
     async function fetchResults() {
