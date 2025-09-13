@@ -4,9 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mr. Haribabu Gurju - Portfolio</title>
-  <link rel="stylesheet" href="style.css">
-
-  <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
@@ -14,7 +11,7 @@
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background: #e6f4ea; /* light green background */
+      background: #e6f4ea;
     }
 
     header, nav, footer {
@@ -30,7 +27,8 @@
       margin: 0;
       display: flex;
       justify-content: center;
-      gap: 20px;
+      flex-wrap: wrap;
+      gap: 15px;
     }
 
     nav a {
@@ -38,36 +36,33 @@
       color: white;
       font-weight: bold;
     }
+    nav a:hover { color: #4CAF50; }
 
     /* Slider */
     #slider {
-      max-width: 100%;
+      width: 100%;
       position: relative;
       overflow: hidden;
       background: #4CAF50;
     }
     .slider-container {
       display: flex;
-      width: 300%;
       animation: slide 12s infinite;
     }
     .slide {
-      width: 100%;
-      flex-shrink: 0;
+      flex: 0 0 100%;
     }
     .slide img {
       width: 100%;
-      height: 400px;
+      height: auto;
+      max-height: 300px; /* mobile friendly */
       object-fit: cover;
     }
     @keyframes slide {
-      0% { transform: translateX(0); }
-      30% { transform: translateX(0); }
-      35% { transform: translateX(-100%); }
-      65% { transform: translateX(-100%); }
-      70% { transform: translateX(-200%); }
-      95% { transform: translateX(-200%); }
-      100% { transform: translateX(0); }
+      0%, 20% { transform: translateX(0); }
+      25%, 45% { transform: translateX(-100%); }
+      50%, 70% { transform: translateX(-200%); }
+      75%, 100% { transform: translateX(0); }
     }
 
     /* About */
@@ -81,10 +76,13 @@
       display: flex;
       align-items: center;
       gap: 20px;
+      flex-wrap: wrap; /* mobile wrapping */
+      text-align: center;
     }
     .profile-pic {
-      width: 200px;
+      width: 180px;
       border-radius: 50%;
+      border: 4px solid #4CAF50;
     }
 
     /* Results */
@@ -92,11 +90,11 @@
       background: #f9fafb;
       padding: 40px 20px;
     }
-    #rollInput { display: block; margin: 20px auto; padding: 10px; width: 250px; }
-    #searchBtn { display: block; margin: 10px auto; padding: 10px 20px; }
-    #resultBox { max-width: 600px; margin: 30px auto; padding: 20px; background: #fff;
-      border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); display: none; }
-    table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+    #rollInput { display: block; margin: 20px auto; padding: 10px; width: 90%; max-width: 250px; }
+    #searchBtn, #printBtn { display: block; margin: 10px auto; padding: 10px 20px; }
+    #resultBox { max-width: 100%; margin: 20px auto; padding: 20px; background: #fff;
+      border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); display: none; overflow-x:auto; }
+    table { width: 100%; border-collapse: collapse; margin-top: 15px; min-width: 400px; }
     th, td { border: 1px solid #ccc; padding: 10px; text-align: center; }
     th { background: #374151; color: white; }
     #notFound { text-align: center; color: red; font-weight: bold; display: none; }
@@ -110,9 +108,7 @@
       color: #4CAF50;
       text-decoration: none;
     }
-    #contact a:hover {
-      text-decoration: underline;
-    }
+    #contact a:hover { text-decoration: underline; }
     form input, form textarea {
       width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #ccc; border-radius: 5px;
     }
@@ -120,6 +116,8 @@
       background: #374151; color: white; padding: 10px 20px; border: none;
       border-radius: 5px; cursor: pointer;
     }
+
+    footer { font-size: 14px; }
   </style>
 </head>
 <body>
@@ -145,32 +143,32 @@
     </div>
   </section>
 
- <!-- About -->
-<section id="about">
-  <h2>About Me</h2>
-  <div class="about-container">
-    <img src="profile.jpg" alt="Mr. Haribabu Gurju" class="profile-pic">
-    <p>
-                  I am <strong>Mr. Haribabu Gurju</strong>, an enthusiastic and results-driven professional with a strong background in 
-      <strong>Electronics and Communication Engineering</strong>.  
-      With extensive teaching and academic experience, I specialize in guiding students through complex technical concepts and inspiring them to achieve academic excellence.  
+  <!-- About -->
+  <section id="about">
+    <h2>About Me</h2>
+    <div class="about-container">
+      <img src="profile.jpg" alt="Mr. Haribabu Gurju" class="profile-pic">
+      <p>
+        I am <strong>Mr. Haribabu Gurju</strong>, an enthusiastic and results-driven professional with a strong background in 
+        <strong>Electronics and Communication Engineering</strong>. With extensive teaching and academic experience, 
+        I specialize in guiding students through complex technical concepts and inspiring them to achieve academic excellence.<br><br>
 
-                  My core expertise includes <strong>VLSI Design, Embedded Systems, Communication Technologies, and Computer Engineering</strong>. 
-      Beyond teaching, I actively engage in mentoring, research activities, and academic development, ensuring students are equipped with both technical knowledge and practical skills.  
+        My core expertise includes <strong>VLSI Design, Embedded Systems, Communication Technologies, and Computer Engineering</strong>. 
+        Beyond teaching, I actively engage in mentoring, research activities, and academic development, ensuring students are equipped 
+        with both technical knowledge and practical skills.<br><br>
 
-                  I am passionate about creating a positive learning environment, fostering innovation, and contributing to institutional growth.  
-      My goal is to empower learners and collaborate on impactful projects that bridge academia and industry.
-    </p>
-  </div>
-</section>
-
+        I am passionate about creating a positive learning environment, fostering innovation, and contributing to institutional growth.  
+        My goal is to empower learners and collaborate on impactful projects that bridge academia and industry.
+      </p>
+    </div>
+  </section>
 
   <!-- Student Result Portal -->
   <section id="results">
     <h2>Student Result Portal</h2>
     <input type="text" id="rollInput" placeholder="Enter Roll No">
     <button id="searchBtn">Search</button>
-    <button onclick="window.print()">Download / Print PDF</button>
+    <button id="printBtn">Download / Print PDF</button>
     <div id="resultBox"></div>
     <div id="notFound">❌ Roll No not found</div>
   </section>
@@ -182,7 +180,7 @@
       <p><i class="fas fa-envelope"></i> 
         <a href="mailto:haribabu@ghb.linkpc.net">haribabu@ghb.linkpc.net</a></p>
       <p><i class="fas fa-phone"></i> 
-        <a href="tel:+91 7382250701">+91 7382250701</a></p>
+        <a href="tel:+917382250701">+91 7382250701</a></p>
       <p><i class="fas fa-map-marker-alt"></i>
         Assistant Professor, Dept. Of ECE, CREC (Autonomous), Tirupati, India</p>
     </div>
@@ -202,22 +200,19 @@
 
   <!-- Scripts -->
   <script>
-    // Student Result Portal
     const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTJMhGQsETkODoHIBnmE101RGjUx161kBg5_qj6MF80zRvfmMq8ZHLty7VV9DHjzEp1igiUc1hZvG9d/pub?output=csv";
 
     async function fetchResults() {
       const response = await fetch(sheetURL);
       const data = await response.text();
-      const rows = data.split("\n").map(r => r.split(","));
-      return rows;
+      return data.split("\n").map(r => r.split(","));
     }
 
     document.getElementById("searchBtn").addEventListener("click", async () => {
       const rollNo = document.getElementById("rollInput").value.trim();
       const rows = await fetchResults();
 
-      let found = false;
-      let resultHTML = "";
+      let found = false, resultHTML = "";
 
       for (let i = 1; i < rows.length; i++) {
         if (rows[i][0] === rollNo) {
@@ -226,8 +221,7 @@
           const subjects = rows[0].slice(2);
           const marks = rows[i].slice(2);
 
-          let total = 0, pass = true;
-          let tableRows = "";
+          let total = 0, pass = true, tableRows = "";
           marks.forEach((m, idx) => {
             const num = Number(m);
             total += num;
@@ -261,6 +255,18 @@
         document.getElementById("resultBox").style.display = "none";
         document.getElementById("notFound").style.display = "block";
       }
+    });
+
+    // Print only results
+    document.getElementById("printBtn").addEventListener("click", () => {
+      const content = document.getElementById("resultBox").innerHTML;
+      if (!content) { alert("Please search a roll number first."); return; }
+      const win = window.open('', '', 'height=700,width=900');
+      win.document.write('<html><head><title>Result</title></head><body>');
+      win.document.write(content);
+      win.document.write('</body></html>');
+      win.document.close();
+      win.print();
     });
   </script>
 </body>
